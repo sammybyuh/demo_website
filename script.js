@@ -232,24 +232,51 @@ portfolioItems.forEach(item => {
     });
 });
 
-// John Cena audio easter egg
-const cenaAudio = new Audio('https://www.myinstants.com/media/sounds/john-cena.mp3');
-cenaAudio.volume = 0.5; // Set volume to 50%
+// John Cena audio easter egg with better browser support
+let cenaAudio = null;
+let audioReady = false;
+
+// Initialize audio on first user interaction
+function initAudio() {
+    if (!cenaAudio) {
+        cenaAudio = new Audio('https://www.myinstants.com/media/sounds/john-cena.mp3');
+        cenaAudio.volume = 0.5;
+        cenaAudio.load();
+        audioReady = true;
+        console.log('🎺 John Cena audio loaded!');
+    }
+}
 
 // Play John Cena sound on any button click
 document.addEventListener('click', (e) => {
-    // Check if clicked element is a button or has btn class
-    if (e.target.tagName === 'BUTTON' || 
-        e.target.classList.contains('btn') || 
-        e.target.closest('button') || 
-        e.target.closest('.btn')) {
+    // Initialize audio on first click
+    if (!audioReady) {
+        initAudio();
+    }
+    
+    // Check if clicked element is a button or link with btn class
+    const isButton = e.target.tagName === 'BUTTON' || 
+                     e.target.tagName === 'A' && e.target.classList.contains('btn') ||
+                     e.target.closest('button') || 
+                     e.target.closest('.btn');
+    
+    if (isButton && audioReady) {
+        console.log('🎺 Button clicked! Playing John Cena...');
         
         // Reset and play the audio
         cenaAudio.currentTime = 0;
-        cenaAudio.play().catch(err => {
-            console.log('Audio play prevented by browser:', err);
-        });
+        cenaAudio.play()
+            .then(() => {
+                console.log('🎺 Audio playing!');
+            })
+            .catch(err => {
+                console.log('❌ Audio play prevented:', err.message);
+                console.log('Try clicking again - browser may need user interaction first');
+            });
     }
 });
+
+// Preload audio on any user interaction
+document.addEventListener('click', initAudio, { once: true });
 
 console.log('WebForge website loaded successfully! 🚀');
