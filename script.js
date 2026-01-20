@@ -232,4 +232,24 @@ portfolioItems.forEach(item => {
     });
 });
 
+// John Cena audio easter egg
+const cenaAudio = new Audio('https://www.myinstants.com/media/sounds/john-cena.mp3');
+cenaAudio.volume = 0.5; // Set volume to 50%
+
+// Play John Cena sound on any button click
+document.addEventListener('click', (e) => {
+    // Check if clicked element is a button or has btn class
+    if (e.target.tagName === 'BUTTON' || 
+        e.target.classList.contains('btn') || 
+        e.target.closest('button') || 
+        e.target.closest('.btn')) {
+        
+        // Reset and play the audio
+        cenaAudio.currentTime = 0;
+        cenaAudio.play().catch(err => {
+            console.log('Audio play prevented by browser:', err);
+        });
+    }
+});
+
 console.log('WebForge website loaded successfully! 🚀');
