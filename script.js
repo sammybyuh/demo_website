@@ -23,8 +23,21 @@ if (hamburger && navMenu) {
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        // Skip sandstorm link
+        if (this.id === 'sandstorm-link') {
+            return;
+        }
+        
+        const href = this.getAttribute('href');
+        
+        // Skip empty hashes
+        if (href === '#' || href === '#!') {
+            e.preventDefault();
+            return;
+        }
+        
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         
         if (target) {
             const offsetTop = target.offsetTop - 80; // Account for fixed navbar
