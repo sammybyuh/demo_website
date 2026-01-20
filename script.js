@@ -275,6 +275,7 @@ const sandstormLink = document.getElementById('sandstorm-link');
 if (sandstormLink) {
     sandstormLink.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation(); // Prevent John Cena from triggering
         initSandstorm();
         playSandstorm();
     });
@@ -320,6 +321,11 @@ window.addEventListener('load', () => {
 
 // Play John Cena sound on navbar link clicks
 document.addEventListener('click', (e) => {
+    // Skip if it's the Sandstorm link
+    if (e.target.id === 'sandstorm-link' || e.target.closest('#sandstorm-link')) {
+        return;
+    }
+    
     // Check if clicked element is a navbar link or button
     const isNavLink = e.target.closest('.nav-menu a') || 
                       e.target.closest('.navbar a');
