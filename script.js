@@ -324,14 +324,6 @@ function playCena() {
     }
 }
 
-// Play on page load (with a slight delay to ensure it works)
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        initAudio();
-        playCena();
-    }, 500);
-});
-
 // Play John Cena sound on navbar link clicks
 document.addEventListener('click', (e) => {
     // Skip if it's the Sandstorm link
