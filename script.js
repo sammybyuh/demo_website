@@ -256,7 +256,7 @@ let sandstormReady = false;
 // Initialize Sandstorm audio
 function initSandstorm() {
     if (!sandstormAudio) {
-        sandstormAudio = new Audio('https://www.myinstants.com/media/sounds/darude-sandstorm.mp3');
+        sandstormAudio = new Audio('https://www.myinstants.com/media/sounds/darudesandstormtrumpet.mp3');
         sandstormAudio.volume = 0.5;
         sandstormAudio.load();
         sandstormReady = true;
