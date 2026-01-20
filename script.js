@@ -236,7 +236,7 @@ portfolioItems.forEach(item => {
 let cenaAudio = null;
 let audioReady = false;
 
-// Initialize audio on first user interaction
+// Initialize audio
 function initAudio() {
     if (!cenaAudio) {
         cenaAudio = new Audio('https://www.myinstants.com/media/sounds/john-cena.mp3');
@@ -247,23 +247,14 @@ function initAudio() {
     }
 }
 
-// Play John Cena sound on any button click
-document.addEventListener('click', (e) => {
-    // Initialize audio on first click
+// Play the John Cena audio
+function playCena() {
     if (!audioReady) {
         initAudio();
     }
     
-    // Check if clicked element is a button or link with btn class
-    const isButton = e.target.tagName === 'BUTTON' || 
-                     e.target.tagName === 'A' && e.target.classList.contains('btn') ||
-                     e.target.closest('button') || 
-                     e.target.closest('.btn');
-    
-    if (isButton && audioReady) {
-        console.log('🎺 Button clicked! Playing John Cena...');
-        
-        // Reset and play the audio
+    if (audioReady && cenaAudio) {
+        console.log('🎺 Playing John Cena...');
         cenaAudio.currentTime = 0;
         cenaAudio.play()
             .then(() => {
@@ -271,12 +262,35 @@ document.addEventListener('click', (e) => {
             })
             .catch(err => {
                 console.log('❌ Audio play prevented:', err.message);
-                console.log('Try clicking again - browser may need user interaction first');
             });
+    }
+}
+
+// Play on page load (with a slight delay to ensure it works)
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        initAudio();
+        playCena();
+    }, 500);
+});
+
+// Play John Cena sound on navbar link clicks
+document.addEventListener('click', (e) => {
+    // Check if clicked element is a navbar link or button
+    const isNavLink = e.target.closest('.nav-menu a') || 
+                      e.target.closest('.navbar a');
+    const isButton = e.target.tagName === 'BUTTON' || 
+                     e.target.tagName === 'A' && e.target.classList.contains('btn') ||
+                     e.target.closest('button') || 
+                     e.target.closest('.btn');
+    
+    if (isNavLink || isButton) {
+        console.log('🎺 Navbar/Button clicked!');
+        playCena();
     }
 });
 
-// Preload audio on any user interaction
+// Initialize audio on first user interaction
 document.addEventListener('click', initAudio, { once: true });
 
 console.log('WebForge website loaded successfully! 🚀');
