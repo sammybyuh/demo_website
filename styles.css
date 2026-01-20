@@ -770,6 +770,71 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================
+   Dracula Flow Section
+   ============================ */
+.dracula-section {
+    padding: 8rem 0;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.dracula-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.dracula-section .section-tag {
+    background: var(--gradient-2);
+}
+
+.dracula-section .section-title {
+    color: var(--white);
+}
+
+.dracula-section .section-description {
+    color: var(--gray-light);
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition);
+}
+
+.video-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+}
+
+/* ============================
    Contact Section
    ============================ */
 .contact {
@@ -985,6 +1050,10 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
     }
     
+    .video-container {
+        max-width: 100%;
+    }
+    
     .footer-content {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1056,6 +1125,10 @@ h1, h2, h3, h4, h5, h6 {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+    }
+    
+    .video-container {
+        border-radius: 16px;
     }
 }
 
