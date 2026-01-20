@@ -236,6 +236,50 @@ portfolioItems.forEach(item => {
 let cenaAudio = null;
 let audioReady = false;
 
+// Darude - Sandstorm audio
+let sandstormAudio = null;
+let sandstormReady = false;
+
+// Initialize Sandstorm audio
+function initSandstorm() {
+    if (!sandstormAudio) {
+        sandstormAudio = new Audio('https://www.myinstants.com/media/sounds/darude-sandstorm.mp3');
+        sandstormAudio.volume = 0.5;
+        sandstormAudio.load();
+        sandstormReady = true;
+        console.log('🎵 Sandstorm loaded!');
+    }
+}
+
+// Play Sandstorm
+function playSandstorm() {
+    if (!sandstormReady) {
+        initSandstorm();
+    }
+    
+    if (sandstormReady && sandstormAudio) {
+        console.log('🎵 Playing Sandstorm...');
+        sandstormAudio.currentTime = 0;
+        sandstormAudio.play()
+            .then(() => {
+                console.log('🎵 Sandstorm playing!');
+            })
+            .catch(err => {
+                console.log('❌ Audio play prevented:', err.message);
+            });
+    }
+}
+
+// Sandstorm link click handler
+const sandstormLink = document.getElementById('sandstorm-link');
+if (sandstormLink) {
+    sandstormLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        initSandstorm();
+        playSandstorm();
+    });
+}
+
 // Initialize audio
 function initAudio() {
     if (!cenaAudio) {
